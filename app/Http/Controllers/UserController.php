@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\RegistrationUserDTO;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Resources\UserResource;
 use App\Services\RegistrationUserService;
@@ -15,7 +16,9 @@ class UserController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        $dto = $request->dto();
+        $dataRequest = $request->safe()->only(['name', 'email', 'password']);
+
+        $dto = RegistrationUserDTO::fromArray(data: $dataRequest);
 
         $createdUser = $this->registrationUserService->registration(dto: $dto);
 

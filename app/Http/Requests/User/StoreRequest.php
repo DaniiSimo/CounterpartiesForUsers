@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\User;
 
-use App\DTO\RegistrationUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -20,10 +19,5 @@ class StoreRequest extends FormRequest
             'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', Password::defaults()],
         ];
-    }
-
-    public function dto(): RegistrationUserDTO
-    {
-        return RegistrationUserDTO::fromArray($this->validated());
     }
 }
