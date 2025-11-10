@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\{Application, Configuration\Exceptions, Configuration\Middleware};
+use App\Exceptions\CounterpartyUniqueException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -10,8 +11,22 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(
+            fn (CounterpartyUniqueException $e, $request) =>
+            $request->is('api/*')
+                ? response()->json(
+                    data:
+                    [
+                        'message'   => $e->getMessage(),
+                        'data' => [
+                            'ogrns' => $e->ogrns
+                        ]
+                    ],
+                    status: 409
+                )
+                : null
+        );
     })->create();

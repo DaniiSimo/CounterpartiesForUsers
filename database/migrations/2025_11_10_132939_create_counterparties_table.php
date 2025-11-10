@@ -19,6 +19,7 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->unique(['ogrn','user_id']);
             $table->timestamps();
         });
     }
