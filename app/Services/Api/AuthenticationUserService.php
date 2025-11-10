@@ -2,7 +2,7 @@
 
 namespace App\Services\Api;
 
-use App\DTO\{ApiAuthenticationUserDTO, ApiLogoutUserDTO};
+use App\DTO\ApiAuthenticationUserDTO;
 use App\{Models\User, Services\RateLimiterService};
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Hash;
@@ -47,12 +47,12 @@ final readonly class AuthenticationUserService
     /**
      * Выход
      *
-     * @param ApiLogoutUserDTO $dto Данные пользователя
+     * @param User $user Пользователь
      *
      * @return bool
      */
-    public function logout(ApiLogoutUserDTO $dto): bool
+    public function logout(User $user): bool
     {
-        return $this->apiTokenService->delete(user: $dto->user);
+        return $this->apiTokenService->delete(user: $user);
     }
 }

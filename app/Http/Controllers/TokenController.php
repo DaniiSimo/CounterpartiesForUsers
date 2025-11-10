@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\ApiLogoutUserDTO;
+use App\DTO\ApiAuthenticationUserDTO;
 use App\Http\Requests\Token\StoreRequest;
 use App\Http\Resources\ApiTokenResource;
 use App\Services\Api\AuthenticationUserService;
@@ -16,7 +16,9 @@ class TokenController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        $dto = $request->dto();
+        $dataRequest = $request->safe()->only(['email', 'password']);
+
+        $dto = ApiAuthenticationUserDTO::fromArray(data: array_merge($dataRequest, ['ip' => $request->ip()]));
 
         $apiToken = $this->authenticationUserService->authentication(dto: $dto);
 
@@ -27,9 +29,7 @@ class TokenController extends Controller
 
     public function destroy(Request $request): Response | JsonResponse
     {
-        $dto = new ApiLogoutUserDTO(user: $request->user());
-
-        $resultLogout = $this->authenticationUserService->logout(dto: $dto);
+        $resultLogout = $this->authenticationUserService->logout(user: $request->user());
 
         return $resultLogout
             ? response()->noContent()
