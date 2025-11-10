@@ -64,7 +64,7 @@ final readonly class DadataService
             'branch_type' => $branchType,
             "status" => $actual ? ['ACTIVE'] : ['LIQUIDATING', 'LIQUIDATED']
         ];
-        if (!key_exists(key: 'organizations', array: $this->urls)) {
+        if (!key_exists(key: 'organization', array: $this->urls)) {
             report(exception: new ExternalApiException(
                 service: self::NAME_SERVICE,
                 endpoint: '',
