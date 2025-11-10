@@ -52,8 +52,6 @@ final readonly class DadataService
      * @param bool $actual Признак того, что запрашиваются только действующие компании (по умолчанию true)
      *
      * @return array Найденные организации
-     *
-     * @throws ExternalApiException
      */
     public function getOrganizations(string $inn, int $count = 1, string $branchType = 'MAIN', string $type = 'LEGAL', bool $actual = true): array
     {
