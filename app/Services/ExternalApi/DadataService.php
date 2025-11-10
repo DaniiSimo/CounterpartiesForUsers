@@ -64,29 +64,30 @@ final readonly class DadataService
             'branch_type' => $branchType,
             "status" => $actual ? ['ACTIVE'] : ['LIQUIDATING', 'LIQUIDATED']
         ];
-        if (!key_exists(key: 'organization', array: $this->urls)) {
-            throw new ExternalApiException(
+        if (!key_exists(key: 'organizations', array: $this->urls)) {
+            report(exception: new ExternalApiException(
                 service: self::NAME_SERVICE,
                 endpoint: '',
                 payload: $payload,
                 logChannel: $this->logChannel,
                 message: 'The organization url from the dadata configuration is not found',
-            );
+            ));
+            return [];
         }
 
         $response = $this->pendingRequest
             ->post(url: $this->urls['organization'], data: $payload)
             ->throw(
-                fn ($response) => throw new ExternalApiException(
+                fn ($response) => report(exception: new ExternalApiException(
                     service: self::NAME_SERVICE,
                     endpoint: $this->urls['organization'],
                     status: $response?->status() ?? 0,
                     payload: $payload,
                     logChannel: $this->logChannel,
                     responseBody: $response?->body()
-                )
+                ))
             );
 
-        return $response->json(key: 'suggestions', default: []);
+        return $response?->json(key: 'suggestions', default: []) ?? [];
     }
 }
