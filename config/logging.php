@@ -127,6 +127,26 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'external_api' => [
+            'driver' => 'stack',
+            'channels' => ['external_daily'],
+            'ignore_exceptions' => false,
+        ],
+
+        'external_api_daily' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/external.log'),
+            'level' => env('LOG_LEVEL_EXTERNAL_API', 'warning'),
+            'days' => 14,
+        ],
+
+        'external_api_dadata' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/external-dadata.log'),
+            'level' => env('LOG_LEVEL_EXTERNAL_API_DADATA', 'warning'),
+            'days'  => 14,
+        ],
+
     ],
 
 ];
