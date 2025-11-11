@@ -31,6 +31,60 @@
 - Make (опционально, для упрощения работы с командной строкой)
 
 ## Быстрый старт
+ниже — готовый блок **Установка**, который можно вставить в README (например, перед «Быстрый старт»).
+
+---
+
+## Установка
+
+### 1) Клонирование репозитория
+
+**HTTPS**
+
+```bash
+git clone https://github.com/DaniiSimo/CounterpartiesForUsers.git
+```
+
+**SSH**
+
+```bash
+git clone git@github.com:DaniiSimo/CounterpartiesForUsers.git
+```
+
+### 2) Копирование файлов окружения
+
+**Linux/macOS**
+
+```bash
+cp .env.example .env
+cp .env.database.example .env.database
+cp .env.nginx.example .env.nginx
+```
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item .env.example .env
+Copy-Item .env.database.example .env.database
+Copy-Item .env.nginx.example .env.nginx
+```
+
+### 3) Заполнение переменных окружения
+
+Откройте файл `.env` и укажите токен для DaData:
+
+```env
+DADATA_TOKEN=your_dadata_api_token_here
+```
+
+Токен можно получить на странице API: [dadata.ru](https://dadata.ru/api/).
+
+При необходимости скорректируйте также:
+
+* `.env.database` — параметры PostgreSQL
+* `.env.nginx` — порт публикации приложения
+
+> Примечание: ключ приложения `APP_KEY` будет сгенерирован при первом запуске контейнера (либо выполните вручную: `php artisan key:generate` внутри PHP-контейнера).
 
 ### Запуск проекта
 
@@ -176,9 +230,9 @@ PORT=80
 **Тело запроса:**
 ```json
 {
-  "name": "Иван Иванов",
-  "email": "user@example.com",
-  "password": "password123"
+    "name": "Иван Иванов",
+    "email": "user@example.com",
+    "password": "password123"
 }
 ```
 
@@ -190,22 +244,22 @@ PORT=80
 **Успешный ответ (200):**
 ```json
 {
-  "data": {
-    "id": 1,
-    "name": "Иван Иванов",
-    "email": "user@example.com"
-  }
+    "data": {
+        "id": 1,
+        "name": "Иван Иванов",
+        "email": "user@example.com"
+    }
 }
 ```
 
 **Ошибка валидации (422):**
 ```json
 {
-  "message": "Ошибка валидации",
-  "errors": {
-    "email": ["The email has already been taken."],
-    "password": ["The password field is required."]
-  }
+    "message": "Ошибка валидации",
+    "errors": {
+        "email": ["The email has already been taken."],
+        "password": ["The password field is required."]
+    }
 }
 ```
 
@@ -218,8 +272,8 @@ PORT=80
 **Тело запроса:**
 ```json
 {
-  "email": "user@example.com",
-  "password": "password123"
+    "email": "user@example.com",
+    "password": "password123"
 }
 ```
 
@@ -230,34 +284,34 @@ PORT=80
 **Успешный ответ (200):**
 ```json
 {
-  "data": {
-    "token": "1|abcdef1234567890..."
-  }
+    "data": {
+        "token": "1|abcdef1234567890..."
+    }
 }
 ```
 
 **Ошибка аутентификации (401):**
 ```json
 {
-  "message": "These credentials do not match our records"
+    "message": "These credentials do not match our records"
 }
 ```
 
 **Ошибка валидации (422):**
 ```json
 {
-  "message": "Ошибка валидации",
-  "errors": {
-    "email": ["The email field is required."],
-    "password": ["The password field is required."]
-  }
+    "message": "Ошибка валидации",
+    "errors": {
+        "email": ["The email field is required."],
+        "password": ["The password field is required."]
+    }
 }
 ```
 
 **Превышен лимит попыток (429):**
 ```json
 {
-  "message": "Too many login attempts. Please try again in 60 seconds."
+    "message": "Too many login attempts. Please try again in 60 seconds."
 }
 ```
 
@@ -276,7 +330,7 @@ PORT=80
 **Ошибка (400):**
 ```json
 {
-  "message": "Logout failed."
+    "message": "Logout failed."
 }
 ```
 
@@ -292,20 +346,20 @@ PORT=80
 **Успешный ответ (200):**
 ```json
 {
-  "data": [
-    {
-      "name": "ООО \"Пример\"",
-      "ogrn": "1027700132195",
-      "address": "г Москва, ул Примерная, д 1",
-    }
-  ]
+    "data": [
+        {
+            "name": "ООО \"Пример\"",
+            "ogrn": "1027700132195",
+            "address": "г Москва, ул Примерная, д 1",
+        }
+    ]
 }
 ```
 
 **Ошибка аутентификации (401):**
 ```json
 {
-  "message": "Unauthenticated."
+    "message": "Unauthenticated."
 }
 ```
 
@@ -321,7 +375,7 @@ PORT=80
 **Тело запроса:**
 ```json
 {
-  "inn": "7707083893"
+    "inn": "7707083893"
 }
 ```
 
@@ -331,38 +385,38 @@ PORT=80
 **Успешный ответ (200):**
 ```json
 {
-  "data": [
-    {
-      "name": "ООО \"Пример\"",
-      "ogrn": "1027700132195",
-      "address": "г Москва, ул Примерная, д 1",
-    }
-  ]
+    "data": [
+        {
+            "name": "ООО \"Пример\"",
+            "ogrn": "1027700132195",
+            "address": "г Москва, ул Примерная, д 1",
+        }
+    ]
 }
 ```
 
 **Ошибка валидации (422):**
 ```json
 {
-  "message": "Ошибка валидации",
-  "errors": {
-    "inn": ["The inn field is required."]
-  }
+    "message": "Ошибка валидации",
+    "errors": {
+        "inn": ["The inn field is required."]
+    }
 }
 ```
 
 **Ошибка уникальности (409):**
 ```json
 {
-  "message": "Counterparty conflict (duplicate OGRN)",
-  "ogrns": ["1027700132195"]
+    "message": "Counterparty conflict (duplicate OGRN)",
+    "ogrns": ["1027700132195"]
 }
 ```
 
 **Ошибка аутентификации (401):**
 ```json
 {
-  "message": "Unauthenticated."
+    "message": "Unauthenticated."
 }
 ```
 
