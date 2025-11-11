@@ -19,15 +19,15 @@ final readonly class CounterpartyService
     {
     }
 
-	/**
-	 * Создание контрагента
-	 *
-	 * @param CreateCounterpartyDTO $dto Данные для создания контрагента
-	 *
-	 * @return Collection<Counterparty> Созданные контрагенты
-	 *
-	 * @throws CounterpartyUniqueException
-	 */
+    /**
+     * Создание контрагента
+     *
+     * @param CreateCounterpartyDTO $dto Данные для создания контрагента
+     *
+     * @return Collection<Counterparty> Созданные контрагенты
+     *
+     * @throws CounterpartyUniqueException
+     */
     public function create(CreateCounterpartyDTO $dto): Collection
     {
         $rawDataCounterparty = $this->dadataService->getOrganizations(inn: $dto->inn);

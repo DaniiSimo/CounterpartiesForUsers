@@ -3,7 +3,7 @@
 use Illuminate\Foundation\{Application, Configuration\Exceptions, Configuration\Middleware};
 use App\Exceptions\CounterpartyUniqueException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
-use \App\Http\Middleware\ForceJsonResponse;
+use App\Http\Middleware\ForceJsonResponse;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
