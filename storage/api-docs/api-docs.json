@@ -17,10 +17,10 @@
                         "http",
                         "https"
                     ],
-                    "default": "https"
+                    "default": "http"
                 },
                 "host": {
-                    "default": "api.example.com"
+                    "default": "localhost"
                 }
             }
         }

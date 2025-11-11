@@ -8,8 +8,8 @@ use OpenApi\Attributes as OA;
 #[OA\Server(
     url: '{scheme}://{host}',
     variables: [
-        new OA\ServerVariable(serverVariable: 'scheme', default: 'https', enum: ['http','https']),
-        new OA\ServerVariable(serverVariable: 'host', default: 'api.example.com'),
+        new OA\ServerVariable(serverVariable: 'scheme', default: 'http', enum: ['http','https']),
+        new OA\ServerVariable(serverVariable: 'host', default: 'localhost'),
     ]
 )]
 #[OA\SecurityScheme(
