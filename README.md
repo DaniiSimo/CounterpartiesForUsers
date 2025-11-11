@@ -31,13 +31,10 @@
 - Make (опционально, для упрощения работы с командной строкой)
 
 ## Быстрый старт
-ниже — готовый блок **Установка**, который можно вставить в README (например, перед «Быстрый старт»).
 
----
+### Установка
 
-## Установка
-
-### 1) Клонирование репозитория
+#### 1) Клонирование репозитория
 
 **HTTPS**
 
@@ -51,7 +48,7 @@ git clone https://github.com/DaniiSimo/CounterpartiesForUsers.git
 git clone git@github.com:DaniiSimo/CounterpartiesForUsers.git
 ```
 
-### 2) Копирование файлов окружения
+#### 2) Копирование файлов окружения
 
 **Linux/macOS**
 
@@ -69,7 +66,7 @@ Copy-Item .env.database.example .env.database
 Copy-Item .env.nginx.example .env.nginx
 ```
 
-### 3) Заполнение переменных окружения
+#### 3) Заполнение переменных окружения
 
 Откройте файл `.env` и укажите токен для DaData:
 
