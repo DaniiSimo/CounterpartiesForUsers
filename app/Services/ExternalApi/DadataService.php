@@ -3,7 +3,7 @@
 namespace App\Services\ExternalApi;
 
 use App\Exceptions\ExternalApiException;
-use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\{ConnectionException, PendingRequest, RequestException};
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -72,20 +72,41 @@ final readonly class DadataService
             ));
             return [];
         }
+        try {
+            $response = $this->pendingRequest
+                ->post(url: $this->urls['organization'], data: $payload)
+                ->throw(
+                    fn ($response) => report(exception: new ExternalApiException(
+                        service: self::NAME_SERVICE,
+                        endpoint: $this->urls['organization'],
+                        status: $response?->status() ?? 0,
+                        payload: $payload,
+                        logChannel: $this->logChannel,
+                        responseBody: $response?->body()
+                    ))
+                );
+            return $response->json(key: 'suggestions', default: []);
+        } catch (ConnectionException $e) {
+            report(new ExternalApiException(
+                service: self::NAME_SERVICE,
+                endpoint: $this->urls['organization'],
+                status: 0,
+                payload: $payload,
+                responseBody: null,
+                logChannel: $this->logChannel,
+                message: 'DaData connection error',
+            ));
+        } catch (RequestException $e) {
+            report(new ExternalApiException(
+                service: self::NAME_SERVICE,
+                endpoint: $this->urls['organization'],
+                status: $e->response?->status() ?? 0,
+                payload: $payload,
+                responseBody: $e->response?->body(),
+                logChannel: $this->logChannel,
+            ));
+        }
 
-        $response = $this->pendingRequest
-            ->post(url: $this->urls['organization'], data: $payload)
-            ->throw(
-                fn ($response) => report(exception: new ExternalApiException(
-                    service: self::NAME_SERVICE,
-                    endpoint: $this->urls['organization'],
-                    status: $response?->status() ?? 0,
-                    payload: $payload,
-                    logChannel: $this->logChannel,
-                    responseBody: $response?->body()
-                ))
-            );
-
-        return $response?->json(key: 'suggestions', default: []) ?? [];
+        return [];
     }
 }
