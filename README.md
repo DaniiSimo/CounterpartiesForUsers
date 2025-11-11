@@ -31,6 +31,60 @@
 - Make (опционально, для упрощения работы с командной строкой)
 
 ## Быстрый старт
+ниже — готовый блок **Установка**, который можно вставить в README (например, перед «Быстрый старт»).
+
+---
+
+## Установка
+
+### 1) Клонирование репозитория
+
+**HTTPS**
+
+```bash
+git clone https://github.com/DaniiSimo/CounterpartiesForUsers.git
+```
+
+**SSH**
+
+```bash
+git clone git@github.com:DaniiSimo/CounterpartiesForUsers.git
+```
+
+### 2) Копирование файлов окружения
+
+**Linux/macOS**
+
+```bash
+cp .env.example .env
+cp .env.database.example .env.database
+cp .env.nginx.example .env.nginx
+```
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item .env.example .env
+Copy-Item .env.database.example .env.database
+Copy-Item .env.nginx.example .env.nginx
+```
+
+### 3) Заполнение переменных окружения
+
+Откройте файл `.env` и укажите токен для DaData:
+
+```env
+DADATA_TOKEN=your_dadata_api_token_here
+```
+
+Токен можно получить на странице API: [dadata.ru](https://dadata.ru/api/).
+
+При необходимости скорректируйте также:
+
+* `.env.database` — параметры PostgreSQL
+* `.env.nginx` — порт публикации приложения
+
+> Примечание: ключ приложения `APP_KEY` будет сгенерирован при первом запуске контейнера (либо выполните вручную: `php artisan key:generate` внутри PHP-контейнера).
 
 ### Запуск проекта
 
