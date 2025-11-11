@@ -1,6 +1,6 @@
 services:
   app:
-    image: danisimoo/pet-project-counterparty:latest
+    image: danisimoo/pet-project-counterparty:1.0.2
     restart: unless-stopped
     env_file:
       - ./.env
