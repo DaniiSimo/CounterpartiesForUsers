@@ -14,7 +14,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'inn' => ['required', 'string', 'max:255'],
+            'inn' => ['required', 'string', 'regex:/^(?:\d{10}|\d{12})$/'],
         ];
     }
 }
