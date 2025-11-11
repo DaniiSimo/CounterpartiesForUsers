@@ -13,7 +13,7 @@ return new class () extends Migration {
         Schema::create(table: 'counterparties', callback: function (Blueprint $table) {
             $table->id();
             $table->string(column: 'name', length: 255);
-            $table->string(column: 'ogrn', length: 255);
+            $table->string(column: 'ogrn', length: 15);
             $table->string(column: 'address', length: 255);
             $table->foreignId(column: 'user_id')
                 ->constrained()
